@@ -1,0 +1,47 @@
+/* global.css
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:disabled {
+  background-color: #d6d8db;
+  cursor: not-allowed;
+}
+
+button:not(:disabled):hover {
+  background-color: #0056b3;
+  color: #ffffff;
+}
+
+.reviewBtn {
+  background-color: #ffc107;
+  color: #ffffff;
+}
+
+.reviewBtn:hover {
+  background-color: #e0a800;
+}
+
+.notCheckedBtn {
+  background-color: #6c757d;
+  color: #ffffff;
+}
+
+.notCheckedBtn:hover {
+  background-color: #5a6268;
+}
+
+.submitBtn {
+  background-color: #28a745;
+  color: #ffffff;
+}
+
+.submitBtn:hover {
+  background-color: #218838;
+} */

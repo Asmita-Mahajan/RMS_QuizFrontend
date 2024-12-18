@@ -1,0 +1,26 @@
+
+
+
+[
+  {
+    "id": "1",
+    "question": "What is React?",
+    "optionA": "A library",
+    "optionB": "A framework",
+    "optionC": "A language",
+    "optionD": "A database",
+    "status": "not-checked",
+    "selectedOption": null
+  },
+  {
+    "id": "2",
+    "question": "What is JSX?",
+    "optionA": "A syntax extension",
+    "optionB": "A database",
+    "optionC": "A framework",
+    "optionD": "A function",
+    "status": "not-checked",
+    "selectedOption": null
+  }
+  
+]
