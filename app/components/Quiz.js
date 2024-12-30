@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -14,6 +13,7 @@ const Quiz = () => {
   const [isTestStarted, setIsTestStarted] = useState(false); // Flag to check if the test has started
   const [error, setError] = useState(""); // Error message for validation
   const [isTestCompleted, setIsTestCompleted] = useState(false); // Flag to check if the test is completed
+  const [timeLeft, setTimeLeft] = useState(10); // 30 minutes in seconds
 
   // Fetch questions from the Spring Boot backend
   useEffect(() => {
@@ -26,6 +26,18 @@ const Quiz = () => {
         console.error("Error fetching questions:", error);
       });
   }, []);
+
+  // Timer countdown
+  useEffect(() => {
+    if (isTestStarted && timeLeft > 0) {
+      const timer = setInterval(() => {
+        setTimeLeft((prevTime) => prevTime - 1);
+      }, 1000);
+      return () => clearInterval(timer);
+    } else if (timeLeft === 0) {
+      handleSubmit();
+    }
+  }, [isTestStarted, timeLeft]);
 
   // Handle selecting an option
   const handleOptionSelect = (optionKey) => {
@@ -95,6 +107,13 @@ const Quiz = () => {
   // Check if any question has a selected option
   const isSubmitEnabled = questions.some((q) => q.selectedOption !== null);
 
+  // Format time in mm:ss
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
+  };
+
   return (
     <div className="quiz-container">
       {/* If test hasn't started, show input fields for name and key */}
@@ -131,6 +150,11 @@ const Quiz = () => {
         </div>
       ) : (
         <>
+          {/* Display Timer */}
+          <div className="timer">
+            Time Left: {formatTime(timeLeft)}
+          </div>
+
           {/* Display Question Status (Question Numbering) */}
           <div className="question-status">
             {questions.map((q, index) => (

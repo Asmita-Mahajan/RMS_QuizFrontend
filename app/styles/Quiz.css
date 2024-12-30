@@ -12,7 +12,15 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-
+/* Timer Styling */
+.timer {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ff0000; /* Red color for urgency */
+  text-align: right;
+  padding: 10px;
+ 
+}
 /* Thank You Message */
 .thank-you-message {
   display: flex;
