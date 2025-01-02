@@ -13,7 +13,7 @@ const Quiz = () => {
   const [isTestStarted, setIsTestStarted] = useState(false); // Flag to check if the test has started
   const [error, setError] = useState(""); // Error message for validation
   const [isTestCompleted, setIsTestCompleted] = useState(false); // Flag to check if the test is completed
-  const [timeLeft, setTimeLeft] = useState(10); // 30 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState(100); // 30 minutes in seconds
 
   // Fetch questions from the Spring Boot backend
   useEffect(() => {
@@ -254,3 +254,8 @@ const Quiz = () => {
 };
 
 export default Quiz;
+
+
+
+
+
