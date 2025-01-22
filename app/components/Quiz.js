@@ -16,7 +16,7 @@ const Quiz = () => {
   // Fetch quiz questions
   useEffect(() => {
     axios
-      .get("http://localhost:8082/api/quiz/all") // Replace with your Spring Boot API endpoint
+      .get("http://localhost:8085/api/quiz/all") // Replace with your Spring Boot API endpoint
       .then((response) => {
         const questionsWithStatus = response.data.map((q) => ({
           ...q,
@@ -125,7 +125,7 @@ const Quiz = () => {
     };
 
     axios
-      .post("http://localhost:8082/api/quiz/submit", submissionData)
+      .post("http://localhost:8085/api/quiz/submit", submissionData)
       .then(() => {
 
         setIsTestCompleted(true);
@@ -159,10 +159,7 @@ const Quiz = () => {
               placeholder="Enter your name"
               value={candidateName}
               onChange={(e) => {
-                const regex = /^[a-zA-Z\s]*$/; // Allow only letters and spaces
-                if (regex.test(e.target.value)) {
-                  setCandidateName(e.target.value); // Update name only if input is valid
-                }
+                setCandidateName(e.target.value); // Update name with any input
               }}
               className={error.includes("name") ? "error-input" : ""}
             />
@@ -197,11 +194,10 @@ const Quiz = () => {
                   {["optionA", "optionB", "optionC", "optionD"].map((key) => (
                     <div
                       key={key}
-                      className={`option ${
-                        questions[currentQuestion]?.selectedOption === key
+                      className={`option ${questions[currentQuestion]?.selectedOption === key
                           ? "selected"
                           : ""
-                      }`}
+                        }`}
                       onClick={() => handleOptionSelect(key)}
                     >
                       {questions[currentQuestion]?.[key]}
@@ -257,11 +253,9 @@ const Quiz = () => {
                 {questions.map((question, index) => (
                   <button
                     key={index}
-                    className={`question-button ${
-                      currentQuestion === index ? "active" : ""
-                    } ${
-                      question.status === "review" ? "marked-for-review" : ""
-                    }`}
+                    className={`question-button ${currentQuestion === index ? "active" : ""
+                      } ${question.status === "review" ? "marked-for-review" : ""
+                      }`}
                     onClick={() => handleNavigation(index)}
                   >
                     {index + 1}
