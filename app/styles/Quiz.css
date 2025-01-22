@@ -1,30 +1,218 @@
-/* Thank You Message */
-.thank-you-message {
+/* General Body Styling */
+.start-test-page {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  margin-top: 50px;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: #e9f7ef;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  height: calc(100vh - 70px);
+  width: 100vw;
+  margin: 0;
+  background-color: #f9f9f9;
 }
 
-.thank-you-message h2 {
-  color: #28a745;
-  font-size: 24px;
-  font-weight: bold;
-}
 /* Start Test Section */
 .start-test {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 50px;
+  padding: 50px;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  /* Larger border-radius for consistency */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
+
+.start-test h2 {
+  margin-bottom: 25px;
+  font-size: 28px;
+  /* Larger font size */
+  font-weight: bold;
+  color: #343a40;
+}
+
+.start-test input {
+  padding: 15px;
+  /* Increased padding for inputs */
+  margin: 15px 0;
+  font-size: 18px;
+  /* Larger font size */
+  width: 90%;
+  /* Increased width for better layout */
+  max-width: 400px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease;
+}
+
+.start-test button {
+  padding: 15px 30px;
+  /* Larger button size */
+  font-size: 18px;
+  border-radius: 8px;
+}
+
+/* Summary Section */
+.summary {
+  background-color: #f8f9fa;
+  padding: 20px;
+  /* Larger padding */
+  margin-top: 25px;
+  border-radius: 12px;
+  /* Larger corners */
+  font-size: 18px;
+  /* Bigger text size */
+}
+
+/* Thank You Message */
+.thank-you-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  padding: 30px;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #e9f7ef;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Options */
+.options {
+  gap: 20px;
+  /* Increased gap between options */
+}
+
+.option {
+  padding: 15px;
+  /* Increased padding */
+  font-size: 18px;
+  /* Larger text size */
+  border-radius: 12px;
+  /* Larger corners */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Question Section */
+.question-section {
+  padding: 30px;
+  /* Increased padding */
+  border-radius: 12px;
+  font-size: 18px;
+}
+
+.question-navigation {
+  margin-bottom: 20px;
+}
+
+/* Navigation Buttons */
+.navigation-buttons {
+  gap: 20px;
+  /* More spacing between buttons */
+  padding: 30px;
+  /* Increased padding */
+  border-radius: 12px;
+}
+
+
+
+/* Add to your Quiz.css file */
+.summary {
+  background-color: #f8f9fa;
+  /* Light background for visibility */
+  padding: 15px;
+  /* Space around content */
+  margin-top: 20px;
+  /* Space from other elements */
+  border-radius: 8px;
+  /* Rounded corners */
+  border: 1px solid #ddd;
+  /* Subtle border */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Light shadow for depth */
+  text-align: left;
+  /* Align content to the left */
+  font-size: 16px;
+  /* Adjust text size */
+}
+
+.summary div {
+  margin: 8px 0;
+  /* Add spacing between rows */
+  font-weight: 500;
+  /* Slightly bold text */
+  display: flex;
+  /* Flex layout for proper alignment */
+  justify-content: space-between;
+  /* Space between text and values */
+}
+
+.summary h5 {
+  margin-bottom: 15px;
+  /* Space below the title */
+  font-size: 18px;
+  /* Slightly larger font for heading */
+  text-align: center;
+  /* Center the heading */
+  font-weight: bold;
+  /* Bold heading */
+  color: #343a40;
+  /* Darker text color */
+}
+
+
+
+.thank-you-message h2 {
+  color: #28a745;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+
+/* Options */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.option {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #f8f9fa;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.option:hover {
+  background-color: #e9ecef;
+  transform: scale(1.02);
+}
+
+.option.selected {
+  background-color: #d4edda;
+  border-color: #28a745;
+}
+
+.side-panel {
+  background: #edf0f598;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.timer {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.time-left {
+  font-size: 40px;
+  color: green;
+}
+
 
 .start-test input {
   padding: 10px;
@@ -64,74 +252,29 @@
   cursor: not-allowed;
 }
 
-
 .quiz-container {
   display: grid;
   grid-template-columns: 3fr 1fr;
   gap: 20px;
-  padding: 20px;
+  /* padding: 20px; */
 }
 
 .question-section {
-  background: #fff;
+  background: #f4f4f698;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
+  position: relative;
 }
+
+
 
 .question-text {
-  margin: 20px 0;
-}
-
-/* Options */
-.options {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.option {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  cursor: pointer;
-  background-color: #f8f9fa;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-.option:hover {
-  background-color: #e9ecef;
-  transform: scale(1.02);
-}
-
-.option.selected {
-  background-color: #d4edda;
-  border-color: #28a745;
-}
-
-.navigation-buttons button {
-  /* margin: 10px 5px; */
-  margin-top: 270px;
-}
-
-.side-panel {
-  background: #f9f9f9;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-}
-
-.timer {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.time-left {
-  font-size: 24px;
-  color: green;
+  margin: 50px 0;
 }
 
 .question-navigation {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .question-list {
@@ -157,15 +300,26 @@
   background: #ffc107;
 }
 
-.summary {
-  text-align: center;
-}
+
 
 .navigation-buttons {
+
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
   display: flex;
-  justify-content: space-between; /* Spreads buttons evenly */
-  gap: 10px; /* Adds spacing between buttons */
-  margin-top: 20px;
+  justify-content: space-between;
+  /* Spreads buttons evenly */
+  gap: 10px;
+  /* Adds spacing between buttons */
+  background-color: #edf0f598;
+  /* Optional: Add background color */
+  padding: 20px;
+  /* Optional: Add padding */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  /* Optional: Add shadow */
+  border-radius: 8px;
+  /* Optional: Add border radius */
 }
 
 .blink-red {
@@ -178,6 +332,7 @@
     opacity: 0;
   }
 }
+
 .question-button {
   background: #007bff;
   color: white;
@@ -193,12 +348,15 @@
 }
 
 .question-button.active {
-  background: #28a745; /* Green for the active question */
+  background: #28a745;
+  /* Green for the active question */
 }
 
 .question-button.marked-for-review {
-  background: #ffc107; /* Yellow for marked-for-review questions */
-  color: #000; /* Optional: Make text black for better readability */
+  background: #ffc107;
+  /* Yellow for marked-for-review questions */
+  color: #000;
+  /* Optional: Make text black for better readability */
 }
 
 .popup {
@@ -210,7 +368,8 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   padding: 20px;
   border-radius: 10px;
-  z-index: 1000; /* Ensure it appears above all other elements */
+  z-index: 1000;
+  /* Ensure it appears above all other elements */
 }
 
 .popup-content {
@@ -227,6 +386,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background */
-  z-index: 999; /* Place it just below the popup */
+  background: rgba(0, 0, 0, 0.5);
+  /* Add a semi-transparent background */
+  z-index: 999;
+  /* Place it just below the popup */
 }

@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -7,21 +6,24 @@ import "../styles/Quiz.css";
 const Quiz = () => {
   const [questions, setQuestions] = useState([]); // Store all quiz questions
   const [currentQuestion, setCurrentQuestion] = useState(0); // Track the current question
-  const [showPopup, setShowPopup] = useState(false); // Controls visibility of the popup modal
-  const [popupMessage, setPopupMessage] = useState(""); // Popup message (success or error)
   const [candidateName, setCandidateName] = useState(""); // Candidate's name
   const [testKey, setTestKey] = useState(""); // Candidate's test key
   const [isTestStarted, setIsTestStarted] = useState(false); // Flag to check if the test has started
   const [error, setError] = useState(""); // Error message for validation
   const [isTestCompleted, setIsTestCompleted] = useState(false); // Flag to check if the test is completed
-  const [timeLeft, setTimeLeft] = useState(1300); // 30 minutes in seconds
+  const [timeLeft, setTimeLeft] = useState(1800); // 30 minutes in seconds
 
   // Fetch quiz questions
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/quiz/all") // Replace with your Spring Boot API endpoint
+      .get("http://localhost:8082/api/quiz/all") // Replace with your Spring Boot API endpoint
       .then((response) => {
-        setQuestions(response.data); // Set the questions from the backend
+        const questionsWithStatus = response.data.map((q) => ({
+          ...q,
+          status: "not-visited", // Add default status for each question
+          selectedOption: null, // Initialize with no option selected
+        }));
+        setQuestions(questionsWithStatus); // Set the questions from the backend
       })
       .catch((error) => {
         console.error("Error fetching questions:", error);
@@ -41,6 +43,16 @@ const Quiz = () => {
   }, [isTestStarted, timeLeft]);
 
   // Derived values
+  const remainingQuestions =
+    isTestStarted && questions.length > 0
+      ? questions.filter((q) => q.status === "not-visited")
+      : [];
+
+  const notVisitedQuestions =
+    isTestStarted && questions.length > 0
+      ? questions.filter((q) => q.status === "not-visited")
+      : [];
+
   const markedQuestions =
     isTestStarted && questions.length > 0
       ? questions.filter((q) => q.status === "review")
@@ -76,15 +88,28 @@ const Quiz = () => {
     setQuestions(updatedQuestions);
   };
 
+  // const startQuiz = () => {
+  //   if (!candidateName.trim() || !testKey.trim()) {
+  //     setError("Please enter both your name and test key.");
+  //     return;
+  //   }
+  //   setError(""); // Clear error message
+  //   setIsTestStarted(true); // Begin the quiz
+  // };
+
+  // Start the quiz after validation
   const startQuiz = () => {
-    if (!candidateName.trim() || !testKey.trim()) {
-      setError("Please enter both your name and test key.");
+    if (!candidateName.trim()) {
+      setError("Please enter your name.");
+      return;
+    }
+    if (!testKey.trim()) {
+      setError("Please enter the test key.");
       return;
     }
     setError(""); // Clear error message
     setIsTestStarted(true); // Begin the quiz
   };
-
   const handleSubmit = () => {
     const selectedAnswers = questions.map((q) => ({
       questionId: q.id,
@@ -100,14 +125,14 @@ const Quiz = () => {
     };
 
     axios
-      .post("http://localhost:8080/api/quiz/submit", submissionData)
+      .post("http://localhost:8082/api/quiz/submit", submissionData)
       .then(() => {
-        setPopupMessage("Quiz Submitted Successfully!");
-        setShowPopup(true);
+
+        setIsTestCompleted(true);
       })
       .catch(() => {
-        setPopupMessage("Error submitting quiz.");
-        setShowPopup(true);
+        setIsTestCompleted(false);
+        alert("Error Submitting your Quiz")
       });
   };
 
@@ -124,29 +149,38 @@ const Quiz = () => {
   return (
     <div className="quiz-container">
       {!isTestStarted ? (
-        <div className="start-test">
-          <h2>Enter your Name and Test Key</h2>
-          <input
-            type="text"
-            placeholder="Enter your name"
-            value={candidateName}
-            onChange={(e) => {
-              const regex = /^[a-zA-Z\s]*$/; // Allow only letters and spaces
-              if (regex.test(e.target.value)) {
-                setCandidateName(e.target.value); // Update name only if input is valid
-              }
-            }}
-          />
-          <input
-            type="number"
-            placeholder="Enter test key"
-            value={testKey}
-            onChange={(e) => setTestKey(e.target.value)}
-          />
-          {error && <p className="error-message">{error}</p>}
-          <button onClick={startQuiz} className="start-button">
-            Start Test
-          </button>
+        <div className="start-test-page">
+          <div className="start-test">
+            <h2>Welcome to the Quiz</h2>
+            <p>Please enter your details to begin.</p>
+
+            <input
+              type="text"
+              placeholder="Enter your name"
+              value={candidateName}
+              onChange={(e) => {
+                const regex = /^[a-zA-Z\s]*$/; // Allow only letters and spaces
+                if (regex.test(e.target.value)) {
+                  setCandidateName(e.target.value); // Update name only if input is valid
+                }
+              }}
+              className={error.includes("name") ? "error-input" : ""}
+            />
+
+            <input
+              type="text"
+              placeholder="Enter test key"
+              value={testKey}
+              onChange={(e) => setTestKey(e.target.value)}
+              className={error.includes("test key") ? "error-input" : ""}
+            />
+
+            {error && <p className="error-message">{error}</p>}
+
+            <button onClick={startQuiz} className="start-button">
+              Start Test
+            </button>
+          </div>
         </div>
       ) : isTestCompleted ? (
         <div className="thank-you-message">
@@ -239,30 +273,23 @@ const Quiz = () => {
             <div className="summary">
               <h5>Summary</h5>
               <div>
-                Answered: {isTestStarted ? answeredQuestions.length : 0}
+                <span>Answered:</span>{" "}
+                <span>{isTestStarted ? answeredQuestions.length : 0}</span>
               </div>
-              <div>Marked: {isTestStarted ? markedQuestions.length : 0}</div>
+              <div>
+                <span>Marked for Review:</span>{" "}
+                <span>{isTestStarted ? markedQuestions.length : 0}</span>
+              </div>
+              <div>
+                <span>Remaining to Answer:</span>{" "}
+                <span>{isTestStarted ? remainingQuestions.length : 0}</span>
+              </div>
+              <div>
+                <span>Not Visited:</span>{" "}
+                <span>{isTestStarted ? notVisitedQuestions.length : 0}</span>
+              </div>
             </div>
           </div>
-          {showPopup && (
-            <>
-              <div className="overlay"></div> {/* Overlay background */}
-              <div className="popup">
-                <div className="popup-content">
-                  <h2>{popupMessage}</h2>
-                  <button
-                    onClick={() => {
-                      setShowPopup(false);
-                      setIsTestCompleted(true);
-                    }}
-                    className="btn btn-primary"
-                  >
-                    OK
-                  </button>
-                </div>
-              </div>
-            </>
-          )}
         </>
       )}
     </div>
@@ -270,4 +297,3 @@ const Quiz = () => {
 };
 
 export default Quiz;
-

@@ -1,0 +1,26 @@
+/* Reset body margin and padding */
+body {
+  margin: 0;
+  /* Remove padding from body */
+}
+
+/* Header styling */
+.header {
+  min-height: 60px;
+  background-color: #3f37c9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  z-index: 100;
+  padding: 5px;
+  font-family: 'Arial', sans-serif;
+  box-sizing: border-box;
+}
+
+/* Logo styles */
+.logoImage {
+  height: 60px;
+}
