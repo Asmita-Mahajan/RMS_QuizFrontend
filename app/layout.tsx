@@ -16,7 +16,7 @@ export default function RootLayout({
       
         <header className="header">
           <div className="logo">
-            <img src="/TTL_group-lockup_White.png" alt="Company Logo" className="logoImage"></img>
+            <img src="/logo.png" alt="Company Logo" className="logoImage"></img>
           </div>
         </header>
         {children}
