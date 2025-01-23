@@ -20,6 +20,10 @@ body {
   box-sizing: border-box;
 }
 
+.logo{
+  filter: brightness(0) invert(1);
+}
+
 /* Logo styles */
 .logoImage {
   height: 60px;
