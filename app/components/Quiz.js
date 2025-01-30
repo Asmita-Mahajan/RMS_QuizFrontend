@@ -107,9 +107,26 @@ const Quiz = () => {
       setError("Please enter the test key.");
       return;
     }
-    setError(""); // Clear error message
-    setIsTestStarted(true); // Begin the quiz
+
+    
+    // Validate candidate
+    axios
+      .get(`http://localhost:8085/api/quiz/validate`, {
+        params: { candidateName, testKey },
+      })
+      .then((response) => {
+        if (response.data) {
+          setError(""); // Clear error message
+          setIsTestStarted(true); // Begin the quiz
+        } else {
+          setError("Invalid candidate name or test key.");
+        }
+      })
+      .catch(() => {
+        setError("Error validating candidate.");
+      });
   };
+  
   const handleSubmit = () => {
     const selectedAnswers = questions.map((q) => ({
       questionId: q.id,
