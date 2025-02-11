@@ -6,7 +6,7 @@ import "../styles/Quiz.css";
 const Quiz = () => {
   const [questions, setQuestions] = useState([]); // Store all quiz questions
   const [currentQuestion, setCurrentQuestion] = useState(0); // Track the current question
-  const [candidateName, setCandidateName] = useState(""); // Candidate's name
+  const [email, setemail] = useState(""); // Candidate's name
   const [testKey, setTestKey] = useState(""); // Candidate's test key
   const [isTestStarted, setIsTestStarted] = useState(false); // Flag to check if the test has started
   const [error, setError] = useState(""); // Error message for validation
@@ -89,7 +89,7 @@ const Quiz = () => {
   };
 
   // const startQuiz = () => {
-  //   if (!candidateName.trim() || !testKey.trim()) {
+  //   if (!email.trim() || !testKey.trim()) {
   //     setError("Please enter both your name and test key.");
   //     return;
   //   }
@@ -99,7 +99,7 @@ const Quiz = () => {
 
   // Start the quiz after validation
   const startQuiz = () => {
-    if (!candidateName.trim()) {
+    if (!email.trim()) {
       setError("Please enter your name.");
       return;
     }
@@ -112,7 +112,7 @@ const Quiz = () => {
     // Validate candidate
     axios
       .get(`http://localhost:8085/api/quiz/validate`, {
-        params: { candidateName, testKey },
+        params: { email, testKey },
       })
       .then((response) => {
         if (response.data) {
@@ -136,7 +136,7 @@ const Quiz = () => {
     }));
 
     const submissionData = {
-      candidateName,
+      email,
       testKey,
       answers: selectedAnswers,
     };
@@ -173,10 +173,10 @@ const Quiz = () => {
 
             <input
               type="text"
-              placeholder="Enter your name"
-              value={candidateName}
+              placeholder="Enter your Email"
+              value={email}
               onChange={(e) => {
-                setCandidateName(e.target.value); // Update name with any input
+                setemail(e.target.value); // Update name with any input
               }}
               className={error.includes("name") ? "error-input" : ""}
             />

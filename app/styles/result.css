@@ -1,4 +1,4 @@
-table {
+/* table {
     border-collapse: collapse;
     width: 100%;
   }
@@ -15,4 +15,61 @@ table {
   
   tr:nth-child(even) {
     background-color: #f9f9f9;
-  }
+  } */
+
+  /* result.css */
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f4f9;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  padding: 20px 0;
+  background-color:#2b138a;
+  color: white;
+}
+
+.results-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.results-table th, .results-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.results-table th {
+  background-color:#2b138a;
+  color: white;
+}
+
+.results-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.results-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+footer {
+  text-align: center;
+  padding: 2px;
+  background-color: #2b138a;
+  color: white;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
