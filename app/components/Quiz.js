@@ -16,7 +16,7 @@ const Quiz = () => {
   // Fetch quiz questions
   useEffect(() => {
     axios
-      .get("http://localhost:8085/api/quiz/all") // Replace with your Spring Boot API endpoint
+      .get("http://localhost:8085/api/quiz/allquize") // Replace with your Spring Boot API endpoint
       .then((response) => {
         const questionsWithStatus = response.data.map((q) => ({
           ...q,
